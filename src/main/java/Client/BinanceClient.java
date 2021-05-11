@@ -1,6 +1,9 @@
 package Client;
 
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+
 /**
  *
  * @author - Cameron Thacker - cthacker-udel
@@ -11,15 +14,31 @@ package Client;
 
 public class BinanceClient extends BinanceRestAPI {
 
-    private String apiKey;
+    BinanceClientKeys clientKeys;
 
-    private String secretKey;
+    BinanceSignature signatureMethods;
 
     public BinanceClient(){
         super();
-        this.apiKey = "defaultApiKey";
-        this.secretKey = "defaultSecretKey";
     }
+
+    public BinanceClient(String newApiKey, String newSecretKey){
+        super();
+        this.clientKeys = new BinanceClientKeys(newApiKey,newSecretKey);
+        this.signatureMethods = new BinanceSignature();
+    }
+
+    public void generateSignature() throws NoSuchAlgorithmException, InvalidKeyException {
+        this.signatureMethods.generateSignature(this.clientKeys.getSecretKey(),"ExampleTotalParams");
+    }
+
+
+    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException {
+        BinanceClient client = new BinanceClient("defaultApiKey","defaultSecretKey");
+        client.generateSignature();
+    }
+
+
 
 
 }
