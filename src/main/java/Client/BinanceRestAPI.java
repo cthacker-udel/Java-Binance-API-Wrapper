@@ -153,6 +153,25 @@ public class BinanceRestAPI {
 
     }
 
+    public List<RecentTrade> oldTradeLookup(BinanceClient client) throws IOException{
+
+        String url = baseUrl + "/api/v3/historicalTrades/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        marketInterface marketInterface = retrofit.create(InterfaceModel.marketInterface.class);
+
+        Call<List<RecentTrade>> call = marketInterface.getOldTrade(client.getClientKeys().getApiKey(),client.getMarket().generateQueries());
+
+        Response<List<RecentTrade>> response = call.execute();
+
+        return response.body();
+
+    }
+
 
 
 }

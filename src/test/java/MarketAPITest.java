@@ -16,7 +16,7 @@ public class MarketAPITest {
 
 
     @Test
-    void test1() throws IOException {
+    void testGetOrderBook() throws IOException {
         client.getMarket().setSymbol("LTCBTC");
         assertNotNull(client.getOrderBook(client));
         client.getMarket().setLimit(5);
@@ -24,9 +24,16 @@ public class MarketAPITest {
     }
 
     @Test
-    void test2() throws IOException{
+    void testRecentTrade() throws IOException{
 
         assertNotNull(client.getRecentTrades(client));
+
+    }
+
+    @Test
+    void testOldTrade() throws IOException {
+
+        assertNotNull(client.oldTradeLookup(client));
 
     }
 

@@ -9,6 +9,7 @@ public class Market extends BinanceClient {
 
     private String symbol;
     private Integer limit;
+    private Long fromId;
 
     public HashMap<String,Object> generateQueries(){
         HashMap<String,Object> queries = new HashMap<String,Object>();
@@ -18,12 +19,16 @@ public class Market extends BinanceClient {
         if(this.limit != null){
             queries.put("limit",this.limit);
         }
+        if(this.fromId != null){
+            queries.put("fromId",this.fromId);
+        }
         return queries;
     }
 
     public void clearQueries(){
         this.symbol = null;
         this.limit = null;
+        this.fromId = null;
     }
 
     public String getSymbol() {
