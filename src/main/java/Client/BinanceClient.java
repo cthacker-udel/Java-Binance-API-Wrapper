@@ -1,6 +1,8 @@
 package Client;
 
 
+import ClientModel.Market;
+
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 
@@ -18,6 +20,8 @@ public class BinanceClient extends BinanceRestAPI {
 
     BinanceSignature signatureMethods;
 
+    Market market;
+
     public BinanceClient(){
         super();
     }
@@ -26,19 +30,22 @@ public class BinanceClient extends BinanceRestAPI {
         super();
         this.clientKeys = new BinanceClientKeys(newApiKey,newSecretKey);
         this.signatureMethods = new BinanceSignature();
+        this.market = new Market();
     }
 
     public void generateSignature() throws NoSuchAlgorithmException, InvalidKeyException {
         this.signatureMethods.generateSignature(this.clientKeys.getSecretKey(),"ExampleTotalParams");
     }
 
-
-    public static void main(String[] args) throws NoSuchAlgorithmException, InvalidKeyException {
-        BinanceClient client = new BinanceClient("defaultApiKey","defaultSecretKey");
-        client.generateSignature();
+    public BinanceClientKeys getClientKeys() {
+        return clientKeys;
     }
 
+    public BinanceSignature getSignatureMethods() {
+        return signatureMethods;
+    }
 
-
-
+    public Market getMarket() {
+        return market;
+    }
 }

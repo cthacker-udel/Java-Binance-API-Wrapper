@@ -2,13 +2,14 @@ package Client;
 
 import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
 import Controller.GeneralEndpointAPI.ServerTime;
-import com.google.gson.Gson;
+
+import Controller.MarketAPI.OrderBook;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import InterfaceModel.generalInterface;
+import InterfaceModel.*;
 
 import java.io.IOException;
 
@@ -105,6 +106,30 @@ public class BinanceRestAPI {
         Response<ExchangeInfoRoot> response = call.execute();
 
         return response.body();
+
+    }
+
+    //#########################
+    //# MARKET DATA API
+    //########################
+
+    public OrderBook getOrderBook(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/depth/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        marketInterface marketInterface = retrofit.create(InterfaceModel.marketInterface.class);
+
+        Call<OrderBook> call = marketInterface.getOrderBook(client.getMarket().generateQueries());
+
+        Response<OrderBook> response = call.execute();
+
+        return response.body();
+
 
     }
 

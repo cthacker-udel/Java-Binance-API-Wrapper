@@ -11,7 +11,7 @@ public class GeneralEndpointTest {
     static BinanceClient client;
 
     static {
-        client = new BinanceClient();
+        client = new BinanceClient("","");
     }
 
 
