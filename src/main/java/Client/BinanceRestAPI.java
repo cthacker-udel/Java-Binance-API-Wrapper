@@ -4,6 +4,7 @@ import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
 import Controller.GeneralEndpointAPI.ServerTime;
 
 import Controller.MarketAPI.OrderBook;
+import Controller.MarketAPI.RecentTrade;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -12,6 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import InterfaceModel.*;
 
 import java.io.IOException;
+import java.util.List;
 
 public class BinanceRestAPI {
 
@@ -130,6 +132,24 @@ public class BinanceRestAPI {
 
         return response.body();
 
+    }
+
+    public List<RecentTrade> getRecentTrades(BinanceClient client) throws IOException{
+
+        String url = baseUrl + "/api/v3/trades/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        marketInterface marketInterface = retrofit.create(InterfaceModel.marketInterface.class);
+
+        Call<List<RecentTrade>> call = marketInterface.getRecentTrade(client.getMarket().generateQueries());
+
+        Response<List<RecentTrade>> response = call.execute();
+
+        return response.body();
 
     }
 

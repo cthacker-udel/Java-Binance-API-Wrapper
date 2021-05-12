@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MarketAPITest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-05-12T09:31:21" hostname="DESKTOP-A9D0H9B" time="1.11">
+<testsuite name="MarketAPITest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-05-12T09:41:01" hostname="DESKTOP-A9D0H9B" time="1.676">
   <properties/>
-  <testcase name="test1()" classname="MarketAPITest" time="1.11"/>
+  <testcase name="test1()" classname="MarketAPITest" time="1.104"/>
+  <testcase name="test2()" classname="MarketAPITest" time="0.57"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

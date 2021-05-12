@@ -14,6 +14,8 @@ Controller/MarketAPI/OrderBook.java
  Controller.MarketAPI.OrderBook
 InterfaceModel/marketInterface.java
  InterfaceModel.marketInterface
+Controller/MarketAPI/RecentTrade.java
+ Controller.MarketAPI.RecentTrade
 ClientModel/Market.java
  ClientModel.Market
 Client/BinanceClientKeys.java

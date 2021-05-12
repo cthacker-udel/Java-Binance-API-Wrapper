@@ -23,4 +23,13 @@ public class MarketAPITest {
         assertNotNull(client.getOrderBook(client));
     }
 
+    @Test
+    void test2() throws IOException{
+
+        assertNotNull(client.getRecentTrades(client));
+
+    }
+
+
+
 }
