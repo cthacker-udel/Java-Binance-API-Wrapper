@@ -1,8 +1,20 @@
-Client/BinanceRestAPI.java
- Client.BinanceRestAPI
 Client/BinanceClientKeys.java
  Client.BinanceClientKeys
+InterfaceModel/generalInterface.java
+ InterfaceModel.generalInterface
+Controller/GeneralEndpointAPI/ExchangeInfo/RateLimit.java
+ Controller.GeneralEndpointAPI.ExchangeInfo.RateLimit
+Controller/test.java
+ Controller.test
 Client/BinanceSignature.java
  Client.BinanceSignature
+Controller/GeneralEndpointAPI/ExchangeInfo/Symbol.java
+ Controller.GeneralEndpointAPI.ExchangeInfo.Symbol
+Controller/GeneralEndpointAPI/ServerTime.java
+ Controller.GeneralEndpointAPI.ServerTime
+Client/BinanceRestAPI.java
+ Client.BinanceRestAPI
+Controller/GeneralEndpointAPI/ExchangeInfo/ExchangeInfoRoot.java
+ Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot
 Client/BinanceClient.java
  Client.BinanceClient
