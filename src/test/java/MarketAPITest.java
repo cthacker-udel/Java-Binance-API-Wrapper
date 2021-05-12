@@ -32,7 +32,7 @@ public class MarketAPITest {
 
     @Test
     void testOldTrade() throws IOException {
-
+        client.getClientKeys().setApiKey("");
         assertNotNull(client.oldTradeLookup(client));
 
     }

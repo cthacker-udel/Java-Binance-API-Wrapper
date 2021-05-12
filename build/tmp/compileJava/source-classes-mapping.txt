@@ -14,14 +14,14 @@ Controller/MarketAPI/OrderBook.java
  Controller.MarketAPI.OrderBook
 Controller/MarketAPI/RecentTrade.java
  Controller.MarketAPI.RecentTrade
-InterfaceModel/marketInterface.java
- InterfaceModel.marketInterface
 ClientModel/Market.java
  ClientModel.Market
 Client/BinanceClientKeys.java
  Client.BinanceClientKeys
 Client/BinanceSignature.java
  Client.BinanceSignature
+InterfaceModel/marketInterface.java
+ InterfaceModel.marketInterface
 Client/BinanceRestAPI.java
  Client.BinanceRestAPI
 Client/BinanceClient.java

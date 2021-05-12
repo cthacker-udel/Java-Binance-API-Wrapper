@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="MarketAPITest" tests="3" skipped="0" failures="1" errors="0" timestamp="2021-05-12T09:46:14" hostname="DESKTOP-A9D0H9B" time="1.664">
+<testsuite name="MarketAPITest" tests="3" skipped="0" failures="1" errors="0" timestamp="2021-05-12T09:52:40" hostname="DESKTOP-A9D0H9B" time="1.73">
   <properties/>
-  <testcase name="testGetOrderBook()" classname="MarketAPITest" time="1.105"/>
-  <testcase name="testOldTrade()" classname="MarketAPITest" time="0.278">
+  <testcase name="testGetOrderBook()" classname="MarketAPITest" time="1.164"/>
+  <testcase name="testOldTrade()" classname="MarketAPITest" time="0.289">
     <failure message="org.opentest4j.AssertionFailedError: expected: not &lt;null&gt;" type="org.opentest4j.AssertionFailedError">org.opentest4j.AssertionFailedError: expected: not &lt;null&gt;
 	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:39)
 	at org.junit.jupiter.api.Assertions.fail(Assertions.java:117)
@@ -103,7 +103,7 @@
 	at java.base/java.lang.Thread.run(Thread.java:832)
 </failure>
   </testcase>
-  <testcase name="testRecentTrade()" classname="MarketAPITest" time="0.278"/>
+  <testcase name="testRecentTrade()" classname="MarketAPITest" time="0.274"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
