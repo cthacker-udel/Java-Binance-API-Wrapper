@@ -266,6 +266,25 @@ public class BinanceRestAPI {
 
     }
 
+    public List<OrderBookTicker> getOrderBookPrice(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/ticker/bookTicker/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        marketInterface marketInterface = retrofit.create(InterfaceModel.marketInterface.class);
+
+        Call<List<OrderBookTicker>> call = marketInterface.getOrderBookPrice(client.getClientKeys().getApiKey(),client.getMarket().generateQueries());
+
+        Response<List<OrderBookTicker>> response = call.execute();
+
+        return response.body();
+
+    }
+
 
 
 

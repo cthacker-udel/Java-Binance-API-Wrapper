@@ -35,4 +35,7 @@ public interface marketInterface {
     @GET("https://api.binance.com/api/v3/ticker/price")
     Call<List<PriceTicker>> getPriceTicker(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
 
+    @GET("https://api.binance.com/api/v3/ticker/bookTicker")
+    Call<List<OrderBookTicker>> getOrderBookPrice(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
+
 }
