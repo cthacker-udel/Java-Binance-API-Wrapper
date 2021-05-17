@@ -192,6 +192,25 @@ public class BinanceRestAPI {
 
     }
 
+    public List<List<Integer>> getKlineData(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/klines";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        marketInterface marketInterface = retrofit.create(InterfaceModel.marketInterface.class);
+
+        Call<List<List<Integer>>> call = marketInterface.getKlineData(client.getClientKeys().getApiKey(),client.getMarket().generateQueries());
+
+        Response<List<List<Integer>>> response = call.execute();
+
+        return response.body();
+
+    }
+
 
 
 
