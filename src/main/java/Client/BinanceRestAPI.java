@@ -3,6 +3,7 @@ package Client;
 import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
 import Controller.GeneralEndpointAPI.ServerTime;
 
+import Controller.MarketAPI.AggOrCompressedTrade;
 import Controller.MarketAPI.OrderBook;
 import Controller.MarketAPI.RecentTrade;
 import retrofit2.Call;
@@ -171,6 +172,27 @@ public class BinanceRestAPI {
         return response.body();
 
     }
+
+    public List<AggOrCompressedTrade> getAggregateOrCompressedTrades(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/aggTrades/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        marketInterface marketInterface = retrofit.create(InterfaceModel.marketInterface.class);
+
+        Call<List<AggOrCompressedTrade>> call = marketInterface.getAggOrCompressedTrades(client.getClientKeys().getApiKey(),client.getMarket().generateQueries());
+
+        Response<List<AggOrCompressedTrade>> response = call.execute();
+
+        return response.body();
+
+    }
+
+
 
 
 

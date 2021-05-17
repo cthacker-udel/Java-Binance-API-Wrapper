@@ -10,6 +10,8 @@ public class Market extends BinanceClient {
     private String symbol;
     private Integer limit;
     private Long fromId;
+    private Long startTime;
+    private Long endTime;
 
     public HashMap<String,Object> generateQueries(){
         HashMap<String,Object> queries = new HashMap<String,Object>();
@@ -22,6 +24,12 @@ public class Market extends BinanceClient {
         if(this.fromId != null){
             queries.put("fromId",this.fromId);
         }
+        if(this.startTime != null){
+            queries.put("startTime",this.startTime);
+        }
+        if(this.endTime != null){
+            queries.put("endTime",this.endTime);
+        }
         return queries;
     }
 
@@ -29,6 +37,32 @@ public class Market extends BinanceClient {
         this.symbol = null;
         this.limit = null;
         this.fromId = null;
+        this.startTime = null;
+        this.endTime = null;
+    }
+
+    public Long getFromId() {
+        return fromId;
+    }
+
+    public void setFromId(Long fromId) {
+        this.fromId = fromId;
+    }
+
+    public Long getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
+    }
+
+    public Long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
     }
 
     public String getSymbol() {
