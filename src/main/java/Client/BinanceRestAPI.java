@@ -3,10 +3,7 @@ package Client;
 import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
 import Controller.GeneralEndpointAPI.ServerTime;
 
-import Controller.MarketAPI.AggOrCompressedTrade;
-import Controller.MarketAPI.AvgPrice;
-import Controller.MarketAPI.OrderBook;
-import Controller.MarketAPI.RecentTrade;
+import Controller.MarketAPI.*;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
@@ -195,7 +192,7 @@ public class BinanceRestAPI {
 
     public List<List<Integer>> getKlineData(BinanceClient client) throws IOException {
 
-        String url = baseUrl + "/api/v3/klines";
+        String url = baseUrl + "/api/v3/klines/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -214,7 +211,7 @@ public class BinanceRestAPI {
 
     public AvgPrice getCurrentAveragePrice(BinanceClient client) throws IOException {
 
-        String url = baseUrl + "/api/v3/avgPrice";
+        String url = baseUrl + "/api/v3/avgPrice/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -226,6 +223,25 @@ public class BinanceRestAPI {
         Call<AvgPrice> call = marketInterface.getAveragePrice(client.getClientKeys().getApiKey(),client.getMarket().generateQueries());
 
         Response<AvgPrice> response = call.execute();
+
+        return response.body();
+
+    }
+
+    public TwentyFourPriceChange getTwentyFourPriceChange(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/ticker/24hr/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        marketInterface marketInterface = retrofit.create(InterfaceModel.marketInterface.class);
+
+        Call<TwentyFourPriceChange> call = marketInterface.getTwentyFourHourChange(client.getClientKeys().getApiKey(),client.getMarket().generateQueries());
+
+        Response<TwentyFourPriceChange> response = call.execute();
 
         return response.body();
 

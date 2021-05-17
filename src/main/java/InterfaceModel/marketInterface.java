@@ -1,9 +1,6 @@
 package InterfaceModel;
 
-import Controller.MarketAPI.AggOrCompressedTrade;
-import Controller.MarketAPI.AvgPrice;
-import Controller.MarketAPI.OrderBook;
-import Controller.MarketAPI.RecentTrade;
+import Controller.MarketAPI.*;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
@@ -31,5 +28,8 @@ public interface marketInterface {
 
     @GET("https://api.binance.com/api/v3/avgPrice")
     Call<AvgPrice> getAveragePrice(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
+
+    @GET("https://api.binance.com/api/v3/ticker/24hr")
+    Call<TwentyFourPriceChange> getTwentyFourHourChange(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
 
 }
