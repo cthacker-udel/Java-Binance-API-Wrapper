@@ -4,6 +4,7 @@ import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
 import Controller.GeneralEndpointAPI.ServerTime;
 
 import Controller.MarketAPI.AggOrCompressedTrade;
+import Controller.MarketAPI.AvgPrice;
 import Controller.MarketAPI.OrderBook;
 import Controller.MarketAPI.RecentTrade;
 import retrofit2.Call;
@@ -206,6 +207,25 @@ public class BinanceRestAPI {
         Call<List<List<Integer>>> call = marketInterface.getKlineData(client.getClientKeys().getApiKey(),client.getMarket().generateQueries());
 
         Response<List<List<Integer>>> response = call.execute();
+
+        return response.body();
+
+    }
+
+    public AvgPrice getCurrentAveragePrice(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/avgPrice";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        marketInterface marketInterface = retrofit.create(InterfaceModel.marketInterface.class);
+
+        Call<AvgPrice> call = marketInterface.getAveragePrice(client.getClientKeys().getApiKey(),client.getMarket().generateQueries());
+
+        Response<AvgPrice> response = call.execute();
 
         return response.body();
 

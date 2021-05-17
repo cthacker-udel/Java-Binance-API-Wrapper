@@ -12,6 +12,7 @@ public class Market extends BinanceClient {
     private Long fromId;
     private Long startTime;
     private Long endTime;
+    private String interval;
 
     public HashMap<String,Object> generateQueries(){
         HashMap<String,Object> queries = new HashMap<String,Object>();
@@ -29,6 +30,9 @@ public class Market extends BinanceClient {
         }
         if(this.endTime != null){
             queries.put("endTime",this.endTime);
+        }
+        if(this.interval != null){
+            queries.put("interval",this.interval);
         }
         return queries;
     }

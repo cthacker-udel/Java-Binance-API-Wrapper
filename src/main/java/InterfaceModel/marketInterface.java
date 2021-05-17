@@ -1,6 +1,7 @@
 package InterfaceModel;
 
 import Controller.MarketAPI.AggOrCompressedTrade;
+import Controller.MarketAPI.AvgPrice;
 import Controller.MarketAPI.OrderBook;
 import Controller.MarketAPI.RecentTrade;
 import retrofit2.Call;
@@ -24,5 +25,11 @@ public interface marketInterface {
 
     @GET("https://api.binance.com/api/v3/aggTrades")
     Call<List<AggOrCompressedTrade>> getAggOrCompressedTrades(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
+
+    @GET("https://api.binance.com/api/v3/klines")
+    Call<List<List<Integer>>> getKlineData(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
+
+    @GET("https://api.binance.com/api/v3/avgPrice")
+    Call<AvgPrice> getAveragePrice(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
 
 }
