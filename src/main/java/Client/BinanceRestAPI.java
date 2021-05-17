@@ -247,6 +247,25 @@ public class BinanceRestAPI {
 
     }
 
+    public List<PriceTicker> getPriceTicker(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/ticker/price/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        marketInterface marketInterface = retrofit.create(InterfaceModel.marketInterface.class);
+
+        Call<List<PriceTicker>> call = marketInterface.getPriceTicker(client.getClientKeys().getApiKey(),client.getMarket().generateQueries());
+
+        Response<List<PriceTicker>> response = call.execute();
+
+        return response.body();
+
+    }
+
 
 
 
