@@ -1,6 +1,7 @@
 package Client;
 
 
+import ClientModel.Account;
 import ClientModel.Market;
 
 import java.security.InvalidKeyException;
@@ -22,6 +23,8 @@ public class BinanceClient extends BinanceRestAPI {
 
     Market market;
 
+    Account account;
+
     public BinanceClient(){
         super();
     }
@@ -31,6 +34,7 @@ public class BinanceClient extends BinanceRestAPI {
         this.clientKeys = new BinanceClientKeys(newApiKey,newSecretKey);
         this.signatureMethods = new BinanceSignature();
         this.market = new Market();
+        this.account = new Account();
     }
 
     public void generateSignature() throws NoSuchAlgorithmException, InvalidKeyException {
@@ -47,5 +51,9 @@ public class BinanceClient extends BinanceRestAPI {
 
     public Market getMarket() {
         return market;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 }
