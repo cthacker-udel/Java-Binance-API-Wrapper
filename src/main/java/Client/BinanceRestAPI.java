@@ -1,5 +1,7 @@
 package Client;
 
+import ClientModel.Account;
+import Controller.AccountAPI.NewOrder;
 import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
 import Controller.GeneralEndpointAPI.ServerTime;
 
@@ -12,6 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import InterfaceModel.*;
 
 import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
 
 public class BinanceRestAPI {
@@ -280,6 +285,36 @@ public class BinanceRestAPI {
         Call<List<OrderBookTicker>> call = marketInterface.getOrderBookPrice(client.getClientKeys().getApiKey(),client.getMarket().generateQueries());
 
         Response<List<OrderBookTicker>> response = call.execute();
+
+        return response.body();
+
+    }
+
+    /*
+
+    ACCOUNT API
+
+     */
+
+    public NewOrder placeNewOrder(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
+
+        String url = baseUrl + "/api/v3/order/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signautre",client.generateSignature(queries));
+
+        Call<NewOrder> call = accountInterface.placeNewOrder(client.getClientKeys().getApiKey(),queries);
+
+        Response<NewOrder> response = call.execute();
 
         return response.body();
 

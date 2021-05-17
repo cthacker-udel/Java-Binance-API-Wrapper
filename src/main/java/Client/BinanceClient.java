@@ -6,6 +6,7 @@ import ClientModel.Market;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 /**
  *
@@ -37,8 +38,8 @@ public class BinanceClient extends BinanceRestAPI {
         this.account = new Account();
     }
 
-    public void generateSignature() throws NoSuchAlgorithmException, InvalidKeyException {
-        this.signatureMethods.generateSignature(this.clientKeys.getSecretKey(),"ExampleTotalParams");
+    public String generateSignature(HashMap<String,Object> params) throws NoSuchAlgorithmException, InvalidKeyException {
+        return this.signatureMethods.generateSignature(this.clientKeys.getSecretKey(),params);
     }
 
     public BinanceClientKeys getClientKeys() {
