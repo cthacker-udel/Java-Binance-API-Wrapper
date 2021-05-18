@@ -30,6 +30,7 @@ public class Account extends BinanceClient {
     private Double stopIcebergQty;
     private String stopLimitTimeInForce;
     private String newOrderRespType;
+    private Long orderListId;
 
     public HashMap<String,Object> generateQueries(){
         HashMap<String,Object> queries = new HashMap<>();
@@ -102,6 +103,9 @@ public class Account extends BinanceClient {
         if(this.newOrderResponseType != null){
             queries.put("newOrderRespType",this.newOrderResponseType);
         }
+        if(this.orderListId != null){
+            queries.put("orderListId",this.orderListId);
+        }
         return queries;
     }
 
@@ -129,6 +133,95 @@ public class Account extends BinanceClient {
         this.stopIcebergQty = null;
         this.stopLimitTimeInForce = null;
         this.newOrderRespType = null;
+        this.orderListId = null;
+    }
+
+    public String getOrigClientOrderId() {
+        return origClientOrderId;
+    }
+
+    public void setOrigClientOrderId(String origClientOrderId) {
+        this.origClientOrderId = origClientOrderId;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public String getListClientOrderId() {
+        return listClientOrderId;
+    }
+
+    public void setListClientOrderId(String listClientOrderId) {
+        this.listClientOrderId = listClientOrderId;
+    }
+
+    public String getLimitClientOrderId() {
+        return limitClientOrderId;
+    }
+
+    public void setLimitClientOrderId(String limitClientOrderId) {
+        this.limitClientOrderId = limitClientOrderId;
+    }
+
+    public Double getLimitIcebergQty() {
+        return limitIcebergQty;
+    }
+
+    public void setLimitIcebergQty(Double limitIcebergQty) {
+        this.limitIcebergQty = limitIcebergQty;
+    }
+
+    public String getStopClientOrderId() {
+        return stopClientOrderId;
+    }
+
+    public void setStopClientOrderId(String stopClientOrderId) {
+        this.stopClientOrderId = stopClientOrderId;
+    }
+
+    public Double getStopLimitPrice() {
+        return stopLimitPrice;
+    }
+
+    public void setStopLimitPrice(Double stopLimitPrice) {
+        this.stopLimitPrice = stopLimitPrice;
+    }
+
+    public Double getStopIcebergQty() {
+        return stopIcebergQty;
+    }
+
+    public void setStopIcebergQty(Double stopIcebergQty) {
+        this.stopIcebergQty = stopIcebergQty;
+    }
+
+    public String getStopLimitTimeInForce() {
+        return stopLimitTimeInForce;
+    }
+
+    public void setStopLimitTimeInForce(String stopLimitTimeInForce) {
+        this.stopLimitTimeInForce = stopLimitTimeInForce;
+    }
+
+    public String getNewOrderRespType() {
+        return newOrderRespType;
+    }
+
+    public void setNewOrderRespType(String newOrderRespType) {
+        this.newOrderRespType = newOrderRespType;
+    }
+
+    public Long getOrderListId() {
+        return orderListId;
+    }
+
+    public void setOrderListId(Long orderListId) {
+        this.orderListId = orderListId;
     }
 
     public String getSymbol() {

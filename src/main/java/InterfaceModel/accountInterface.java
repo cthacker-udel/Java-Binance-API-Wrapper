@@ -34,4 +34,7 @@ public interface accountInterface {
     @POST("https://api.binance.com/api/v3/order/oco")
     Call<OCOTrade> placeNewOCO(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
 
+    @DELETE("https://api.binance.com/api/v3/orderList")
+    Call<OCOTrade> cancelOCO(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
+
 }

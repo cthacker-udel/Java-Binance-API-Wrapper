@@ -493,6 +493,32 @@ public class BinanceRestAPI {
 
     }
 
+    public OCOTrade cancelOCO(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/orderList";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+
+        Call<OCOTrade> call = accountInterface.cancelOCO(client.getClientKeys().getApiKey(),queries);
+
+        Response<OCOTrade> response = call.execute();
+
+        return response.body();
+    }
+
+
+
 
 
 
