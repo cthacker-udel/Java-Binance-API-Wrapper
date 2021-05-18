@@ -2,6 +2,7 @@ package Client;
 
 import ClientModel.Account;
 import Controller.AccountAPI.NewOrder;
+import Controller.AccountAPI.QueryOrder;
 import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
 import Controller.GeneralEndpointAPI.ServerTime;
 
@@ -343,7 +344,30 @@ public class BinanceRestAPI {
 
         return response.isSuccessful();
 
+    }
 
+    public QueryOrder queryOrder(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/order";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+
+        Call<QueryOrder> call = accountInterface.queryOrder(client.getClientKeys().getApiKey(),queries);
+
+        Response<QueryOrder> response = call.execute();
+
+        return response.body();
 
     }
 

@@ -20,6 +20,8 @@ public class Account extends BinanceClient {
     private String newOrderResponseType;
     private Long receiveWindow;
     private Long timeStamp;
+    private String origClientOrderId;
+    private String orderId;
 
     public HashMap<String,Object> generateQueries(){
         HashMap<String,Object> queries = new HashMap<>();
@@ -62,6 +64,12 @@ public class Account extends BinanceClient {
         if(this.timeStamp != null){
             queries.put("timestamp",this.timeStamp);
         }
+        if(this.orderId != null){
+            queries.put("orderId",this.orderId);
+        }
+        if(this.origClientOrderId != null){
+            queries.put("origClientOrderId",this.origClientOrderId);
+        }
         return queries;
     }
 
@@ -79,6 +87,8 @@ public class Account extends BinanceClient {
         this.newOrderResponseType = null;
         this.receiveWindow = null;
         this.timeStamp = null;
+        this.origClientOrderId = null;
+        this.orderId = null;
     }
 
     public String getSymbol() {
