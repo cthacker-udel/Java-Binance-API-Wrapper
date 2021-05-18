@@ -1,10 +1,7 @@
 package Client;
 
 import ClientModel.Account;
-import Controller.AccountAPI.CancelOrder;
-import Controller.AccountAPI.NewOrder;
-import Controller.AccountAPI.OpenOrder;
-import Controller.AccountAPI.QueryOrder;
+import Controller.AccountAPI.*;
 import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
 import Controller.GeneralEndpointAPI.ServerTime;
 
@@ -439,6 +436,31 @@ public class BinanceRestAPI {
         Call<List<OpenOrder>> call = accountInterface.getCurrentOpenOrders(client.getClientKeys().getApiKey(),queries);
 
         Response<List<OpenOrder>> response = call.execute();
+
+        return response.body();
+
+    }
+
+    public List<Order> getListOfAllOrders(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/allOrders/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+
+        Call<List<Order>> call = accountInterface.getAllOrders(client.getClientKeys().getApiKey(),queries);
+
+        Response<List<Order>> response = call.execute();
 
         return response.body();
 
