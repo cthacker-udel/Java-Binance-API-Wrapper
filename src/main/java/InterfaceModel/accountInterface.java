@@ -2,6 +2,7 @@ package InterfaceModel;
 
 import Controller.AccountAPI.*;
 import Controller.AccountAPI.OCO.OCOTrade;
+import Controller.AccountAPI.OpenOCO.OpenOCO;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -42,5 +43,8 @@ public interface accountInterface {
 
     @GET("https://api.binance.com/api/v3/allOrderList")
     Call<List<OCOTrade>> queryAllOCO(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
+
+    @GET("https://api.binance.com/api/v3/openOrderList")
+    Call<List<OpenOCO>> queryOpenOCO(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
 
 }

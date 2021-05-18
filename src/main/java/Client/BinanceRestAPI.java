@@ -4,6 +4,7 @@ import ClientModel.Account;
 import Controller.AccountAPI.*;
 import Controller.AccountAPI.OCO.OCOOrder;
 import Controller.AccountAPI.OCO.OCOTrade;
+import Controller.AccountAPI.OpenOCO.OpenOCO;
 import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
 import Controller.GeneralEndpointAPI.ServerTime;
 
@@ -312,7 +313,7 @@ public class BinanceRestAPI {
         Account binanceAccount = client.getAccount();
         HashMap<String,Object> queries = binanceAccount.generateQueries();
         queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
-        queries.put("signautre",client.generateSignature(queries));
+        queries.put("signature",client.generateSignature(queries));
 
         Call<NewOrder> call = accountInterface.placeNewOrder(client.getClientKeys().getApiKey(),queries);
 
@@ -347,7 +348,7 @@ public class BinanceRestAPI {
 
     }
 
-    public QueryOrder queryOrder(BinanceClient client) throws IOException {
+    public QueryOrder queryOrder(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
         String url = baseUrl + "/api/v3/order/";
 
@@ -363,6 +364,7 @@ public class BinanceRestAPI {
         HashMap<String,Object> queries = binanceAccount.generateQueries();
 
         queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signature",client.generateSignature(queries));
 
         Call<QueryOrder> call = accountInterface.queryOrder(client.getClientKeys().getApiKey(),queries);
 
@@ -372,7 +374,7 @@ public class BinanceRestAPI {
 
     }
 
-    public void cancelOrder(BinanceClient client) throws IOException {
+    public void cancelOrder(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
         String url = baseUrl + "/api/v3/order/";
 
@@ -388,12 +390,13 @@ public class BinanceRestAPI {
         HashMap<String,Object> queries = binanceAccount.generateQueries();
 
         queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signature",client.generateSignature(queries));
 
         Call<CancelOrder> call = accountInterface.cancelOrder(client.getClientKeys().getApiKey(),queries);
 
     }
 
-    public List<CancelOrder> cancelAllOpenOrdersOnSymbol(BinanceClient client) throws IOException {
+    public List<CancelOrder> cancelAllOpenOrdersOnSymbol(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
         String url = baseUrl + "/api/v3/openOrders/";
 
@@ -409,6 +412,7 @@ public class BinanceRestAPI {
         HashMap<String,Object> queries = binanceAccount.generateQueries();
 
         queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signature",client.generateSignature(queries));
 
         Call<List<CancelOrder>> call = accountInterface.cancelAllActiveOrdersOnSymbol(client.getClientKeys().getApiKey(),queries);
 
@@ -418,7 +422,7 @@ public class BinanceRestAPI {
 
     }
 
-    public List<OpenOrder> getCurrentOpenOrders(BinanceClient client) throws IOException {
+    public List<OpenOrder> getCurrentOpenOrders(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
         String url = baseUrl + "/api/v3/openOrders/";
 
@@ -434,6 +438,7 @@ public class BinanceRestAPI {
         HashMap<String,Object> queries = binanceAccount.generateQueries();
 
         queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signature",client.generateSignature(queries));
 
         Call<List<OpenOrder>> call = accountInterface.getCurrentOpenOrders(client.getClientKeys().getApiKey(),queries);
 
@@ -443,7 +448,7 @@ public class BinanceRestAPI {
 
     }
 
-    public List<Order> getListOfAllOrders(BinanceClient client) throws IOException {
+    public List<Order> getListOfAllOrders(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
         String url = baseUrl + "/api/v3/allOrders/";
 
@@ -459,6 +464,7 @@ public class BinanceRestAPI {
         HashMap<String,Object> queries = binanceAccount.generateQueries();
 
         queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signature",client.generateSignature(queries));
 
         Call<List<Order>> call = accountInterface.getAllOrders(client.getClientKeys().getApiKey(),queries);
 
@@ -468,7 +474,7 @@ public class BinanceRestAPI {
 
     }
 
-    public OCOTrade newOCOTrade(BinanceClient client) throws IOException {
+    public OCOTrade newOCOTrade(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
         String url = baseUrl + "/api/v3/order/oco/";
 
@@ -484,6 +490,7 @@ public class BinanceRestAPI {
         HashMap<String,Object> queries = binanceAccount.generateQueries();
 
         queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signature",client.generateSignature(queries));
 
         Call<OCOTrade> call = accountInterface.placeNewOCO(client.getClientKeys().getApiKey(),queries);
 
@@ -493,7 +500,7 @@ public class BinanceRestAPI {
 
     }
 
-    public OCOTrade cancelOCO(BinanceClient client) throws IOException {
+    public OCOTrade cancelOCO(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
         String url = baseUrl + "/api/v3/orderList/";
 
@@ -509,6 +516,7 @@ public class BinanceRestAPI {
         HashMap<String,Object> queries = binanceAccount.generateQueries();
 
         queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signature",client.generateSignature(queries));
 
         Call<OCOTrade> call = accountInterface.cancelOCO(client.getClientKeys().getApiKey(),queries);
 
@@ -517,7 +525,7 @@ public class BinanceRestAPI {
         return response.body();
     }
 
-    public OCOTrade queryOCO(BinanceClient client) throws IOException {
+    public OCOTrade queryOCO(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
         String url = baseUrl + "/api/v3/orderList/";
 
@@ -533,6 +541,7 @@ public class BinanceRestAPI {
         HashMap<String,Object> queries = binanceAccount.generateQueries();
 
         queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signature",client.generateSignature(queries));
 
         Call<OCOTrade> call = accountInterface.queryOCO(client.getClientKeys().getApiKey(),queries);
 
@@ -542,7 +551,7 @@ public class BinanceRestAPI {
 
     }
 
-    public List<OCOTrade> queryAllOCO(BinanceClient client) throws IOException {
+    public List<OCOTrade> queryAllOCO(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
 
         String url = baseUrl + "/api/v3/allOrderList/";
 
@@ -558,6 +567,7 @@ public class BinanceRestAPI {
         HashMap<String,Object> queries = binanceAccount.generateQueries();
 
         queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signature",client.generateSignature(queries));
 
         Call<List<OCOTrade>> call = accountInterface.queryAllOCO(client.getClientKeys().getApiKey(),queries);
 
@@ -565,6 +575,32 @@ public class BinanceRestAPI {
 
         return response.body();
 
+    }
+
+    public List<OpenOCO> queryOpenOCO(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
+
+        String url = baseUrl + "/api/v3/openOrderList/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+
+        queries.put("signature",client.generateSignature(queries));
+
+        Call<List<OpenOCO>> call = accountInterface.queryOpenOCO(client.getClientKeys().getApiKey(),queries);
+
+        Response<List<OpenOCO>> response = call.execute();
+
+        return response.body();
     }
 
 
