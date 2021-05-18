@@ -542,6 +542,31 @@ public class BinanceRestAPI {
 
     }
 
+    public List<OCOTrade> queryAllOCO(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/allOrderList/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+
+        Call<List<OCOTrade>> call = accountInterface.queryAllOCO(client.getClientKeys().getApiKey(),queries);
+
+        Response<List<OCOTrade>> response = call.execute();
+
+        return response.body();
+
+    }
+
 
 
 

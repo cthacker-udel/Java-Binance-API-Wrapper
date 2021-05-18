@@ -40,4 +40,7 @@ public interface accountInterface {
     @GET("https://api.binance.com/api/v3/orderList")
     Call<OCOTrade> queryOCO(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
 
+    @GET("https://api.binance.com/api/v3/allOrderList")
+    Call<List<OCOTrade>> queryAllOCO(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
+
 }
