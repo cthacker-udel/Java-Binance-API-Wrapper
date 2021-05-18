@@ -1,6 +1,7 @@
 package Client;
 
 import ClientModel.Account;
+import Controller.AccountAPI.CancelOrder;
 import Controller.AccountAPI.NewOrder;
 import Controller.AccountAPI.QueryOrder;
 import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
@@ -348,7 +349,7 @@ public class BinanceRestAPI {
 
     public QueryOrder queryOrder(BinanceClient client) throws IOException {
 
-        String url = baseUrl + "/api/v3/order";
+        String url = baseUrl + "/api/v3/order/";
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(url)
@@ -370,6 +371,54 @@ public class BinanceRestAPI {
         return response.body();
 
     }
+
+    public void cancelOrder(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/order/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+
+        Call<CancelOrder> call = accountInterface.cancelOrder(client.getClientKeys().getApiKey(),queries);
+
+    }
+
+    public List<CancelOrder> cancelAllOpenOrdersOnSymbol(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/openOrders/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+
+        Call<List<CancelOrder>> call = accountInterface.cancelAllActiveOrdersOnSymbol(client.getClientKeys().getApiKey(),queries);
+
+        Response<List<CancelOrder>> response = call.execute();
+
+        return response.body();
+
+    }
+
+
 
 
 
