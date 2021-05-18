@@ -2,6 +2,8 @@ package Client;
 
 import ClientModel.Account;
 import Controller.AccountAPI.*;
+import Controller.AccountAPI.OCO.OCOOrder;
+import Controller.AccountAPI.OCO.OCOTrade;
 import Controller.GeneralEndpointAPI.ExchangeInfo.ExchangeInfoRoot;
 import Controller.GeneralEndpointAPI.ServerTime;
 
@@ -461,6 +463,31 @@ public class BinanceRestAPI {
         Call<List<Order>> call = accountInterface.getAllOrders(client.getClientKeys().getApiKey(),queries);
 
         Response<List<Order>> response = call.execute();
+
+        return response.body();
+
+    }
+
+    public OCOTrade newOCOTrade(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/order/oco/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+
+        Call<OCOTrade> call = accountInterface.placeNewOCO(client.getClientKeys().getApiKey(),queries);
+
+        Response<OCOTrade> response = call.execute();
 
         return response.body();
 

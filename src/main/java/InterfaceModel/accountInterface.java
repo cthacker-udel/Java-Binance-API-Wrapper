@@ -1,6 +1,7 @@
 package InterfaceModel;
 
 import Controller.AccountAPI.*;
+import Controller.AccountAPI.OCO.OCOTrade;
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -29,5 +30,8 @@ public interface accountInterface {
 
     @GET("https://api.binance.com/api/v3/allOrders")
     Call<List<Order>> getAllOrders(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
+
+    @POST("https://api.binance.com/api/v3/order/oco")
+    Call<OCOTrade> placeNewOCO(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
 
 }

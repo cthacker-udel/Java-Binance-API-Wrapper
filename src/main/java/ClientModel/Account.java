@@ -22,6 +22,14 @@ public class Account extends BinanceClient {
     private Long timeStamp;
     private String origClientOrderId;
     private String orderId;
+    private String listClientOrderId;
+    private String limitClientOrderId;
+    private Double limitIcebergQty;
+    private String stopClientOrderId;
+    private Double stopLimitPrice;
+    private Double stopIcebergQty;
+    private String stopLimitTimeInForce;
+    private String newOrderRespType;
 
     public HashMap<String,Object> generateQueries(){
         HashMap<String,Object> queries = new HashMap<>();
@@ -70,6 +78,30 @@ public class Account extends BinanceClient {
         if(this.origClientOrderId != null){
             queries.put("origClientOrderId",this.origClientOrderId);
         }
+        if(this.listClientOrderId != null){
+            queries.put("listClientOrderId",this.listClientOrderId);
+        }
+        if(this.limitClientOrderId != null){
+            queries.put("limitClientOrderId",this.limitClientOrderId);
+        }
+        if(this.limitIcebergQty != null){
+            queries.put("limitIcebergQty",this.limitIcebergQty);
+        }
+        if(this.stopClientOrderId != null){
+            queries.put("stopClientOrderId",this.stopClientOrderId);
+        }
+        if(this.stopLimitPrice != null){
+            queries.put("stopLimitPrice",this.stopLimitPrice);
+        }
+        if(this.stopIcebergQty != null){
+            queries.put("stopIcebergQty",this.stopIcebergQty);
+        }
+        if(this.stopLimitTimeInForce != null){
+            queries.put("stopLimitTimeInForce",this.stopLimitTimeInForce);
+        }
+        if(this.newOrderResponseType != null){
+            queries.put("newOrderRespType",this.newOrderResponseType);
+        }
         return queries;
     }
 
@@ -89,6 +121,14 @@ public class Account extends BinanceClient {
         this.timeStamp = null;
         this.origClientOrderId = null;
         this.orderId = null;
+        this.listClientOrderId = null;
+        this.limitClientOrderId = null;
+        this.limitIcebergQty = null;
+        this.stopClientOrderId = null;
+        this.stopLimitPrice = null;
+        this.stopIcebergQty = null;
+        this.stopLimitTimeInForce = null;
+        this.newOrderRespType = null;
     }
 
     public String getSymbol() {
