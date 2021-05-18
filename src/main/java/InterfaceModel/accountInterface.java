@@ -2,6 +2,7 @@ package InterfaceModel;
 
 import Controller.AccountAPI.CancelOrder;
 import Controller.AccountAPI.NewOrder;
+import Controller.AccountAPI.OpenOrder;
 import Controller.AccountAPI.QueryOrder;
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -25,5 +26,8 @@ public interface accountInterface {
 
     @DELETE("https://api.binance.com/api/v3/openOrders")
     Call<List<CancelOrder>> cancelAllActiveOrdersOnSymbol(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
+
+    @GET("https://api.binance.com/api/v3/openOrders")
+    Call<List<OpenOrder>> getCurrentOpenOrders(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
 
 }
