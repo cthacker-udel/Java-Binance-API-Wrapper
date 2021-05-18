@@ -13,4 +13,7 @@ public interface accountInterface {
     @POST("https://api.binance.com/api/v3/order")
     Call<NewOrder> placeNewOrder(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
 
+    @POST("https://api.binance.com/api/v3/order/test")
+    Call<Void> testNewOrder(@Header("X-MBX-APIKEY") String apiKey, @QueryMap HashMap<String,Object> queries);
+
 }

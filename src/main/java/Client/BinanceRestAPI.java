@@ -321,6 +321,33 @@ public class BinanceRestAPI {
     }
 
 
+    public boolean testNewOrder(BinanceClient client) throws IOException, NoSuchAlgorithmException, InvalidKeyException {
+
+        String url = baseUrl + "/api/v3/order/test/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+        queries.put("signature",client.generateSignature(queries));
+
+        Call<Void> call = accountInterface.testNewOrder(client.getClientKeys().getApiKey(),queries);
+
+        Response<Void> response = call.execute();
+
+        return response.isSuccessful();
+
+
+
+    }
+
+
 
 
 
