@@ -2,6 +2,7 @@ package Client;
 
 import ClientModel.Account;
 import Controller.AccountAPI.*;
+import Controller.AccountAPI.AccountInfo.AccountInfo;
 import Controller.AccountAPI.OCO.OCOOrder;
 import Controller.AccountAPI.OCO.OCOTrade;
 import Controller.AccountAPI.OpenOCO.OpenOCO;
@@ -601,6 +602,58 @@ public class BinanceRestAPI {
         Response<List<OpenOCO>> response = call.execute();
 
         return response.body();
+
+    }
+
+    public AccountInfo getAccountInformation(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/account/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+
+        Call<AccountInfo> call = accountInterface.getAccountInformation(client.getClientKeys().getApiKey(),queries);
+
+        Response<AccountInfo> response = call.execute();
+
+        return response.body();
+
+    }
+
+    public AccountInfo getAccountTradeList(BinanceClient client) throws IOException {
+
+        String url = baseUrl + "/api/v3/myTrades/";
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        accountInterface accountInterface = retrofit.create(InterfaceModel.accountInterface.class);
+
+        Account binanceAccount = client.getAccount();
+
+        HashMap<String,Object> queries = binanceAccount.generateQueries();
+
+        queries.put("timestamp",(System.currentTimeMillis() * 1000) - client.getServerTime(client) + 500);
+
+        Call<AccountInfo> call = accountInterface.getAccountInformation(client.getClientKeys().getApiKey(),queries);
+
+        Response<AccountInfo> response = call.execute();
+
+        return response.body();
+
+
     }
 
 

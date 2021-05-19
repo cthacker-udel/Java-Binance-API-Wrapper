@@ -31,6 +31,10 @@ public class Account extends BinanceClient {
     private String stopLimitTimeInForce;
     private String newOrderRespType;
     private Long orderListId;
+    private Long startTime;
+    private Long endTime;
+    private Long fromId;
+    private Integer limit;
 
     public HashMap<String,Object> generateQueries(){
         HashMap<String,Object> queries = new HashMap<>();
@@ -106,6 +110,18 @@ public class Account extends BinanceClient {
         if(this.orderListId != null){
             queries.put("orderListId",this.orderListId);
         }
+        if(this.startTime != null){
+            queries.put("startTime",this.startTime);
+        }
+        if(this.endTime != null){
+            queries.put("endTime",this.endTime);
+        }
+        if(this.fromId != null){
+            queries.put("fromId",this.fromId);
+        }
+        if(this.limit != null){
+            queries.put("limit",this.limit);
+        }
         return queries;
     }
 
@@ -134,6 +150,10 @@ public class Account extends BinanceClient {
         this.stopLimitTimeInForce = null;
         this.newOrderRespType = null;
         this.orderListId = null;
+        this.startTime = null;
+        this.endTime = null;
+        this.fromId = null;
+        this.limit = null;
     }
 
     public String getOrigClientOrderId() {
